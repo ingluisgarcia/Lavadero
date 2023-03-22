@@ -7,6 +7,7 @@ package lavadero;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -48,6 +49,8 @@ public class FrmLavadero extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnMostrar = new javax.swing.JButton();
         lbTotal = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableRegistros = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,6 +89,19 @@ public class FrmLavadero extends javax.swing.JFrame {
 
         lbTotal.setText("jLabel4");
 
+        tableRegistros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tableRegistros);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,34 +123,39 @@ public class FrmLavadero extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnMostrar))
                     .addComponent(lbTotal))
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rbLavadoSencillo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rbLavadoMotor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rbSuperSpa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnMostrar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbTotal)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbLavadoSencillo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbLavadoMotor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rbSuperSpa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnMostrar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbTotal)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -214,9 +235,24 @@ public class FrmLavadero extends javax.swing.JFrame {
     public void mostrarInfo(){
         int total =0;
         for(int i =0; i<listaLavadero.size(); i++){
-            System.out.println(listaLavadero.get(i).getNombre()+"\t"+listaLavadero.get(i).getPlaca()+"\t"+listaLavadero.get(i).getTipoLavado()+"\t"+Integer.toString(listaLavadero.get(i).getPrecioPagado()));
+            //System.out.println(listaLavadero.get(i).getNombre()+"\t"+listaLavadero.get(i).getPlaca()+"\t"+listaLavadero.get(i).getTipoLavado()+"\t"+Integer.toString(listaLavadero.get(i).getPrecioPagado()));
             total+= listaLavadero.get(i).getPrecioPagado();
         }
+        
+        DefaultTableModel modelo = new DefaultTableModel();
+        String nombreColumnas[] = {"Nombre", "Placa", 
+            "Tipo lavado", "Valor pagado"};
+        modelo.setColumnIdentifiers(nombreColumnas);
+        for(int i =0; i< listaLavadero.size(); i++){
+            modelo.addRow(new Object[]{listaLavadero.get(i).getNombre(),
+            listaLavadero.get(i).getPlaca(),
+            listaLavadero.get(i).getTipoLavado(),
+            listaLavadero.get(i).getPrecioPagado()});
+        }
+        tableRegistros.setModel(modelo);
+                
+        
+        
         lbTotal.setText("Total recaudado: $"+total);
     }
     
@@ -233,10 +269,12 @@ public class FrmLavadero extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbTotal;
     private javax.swing.JRadioButton rbLavadoMotor;
     private javax.swing.JRadioButton rbLavadoSencillo;
     private javax.swing.JRadioButton rbSuperSpa;
+    private javax.swing.JTable tableRegistros;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPlaca;
     // End of variables declaration//GEN-END:variables
